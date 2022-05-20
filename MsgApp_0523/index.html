@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<title>Chatアプリ</title>
+<link rel="stylesheet" href="css/sample.css">
+</head>
+<body>
+<!---------------------------- コンテンツ表示画面/チャット入力部分 ---------------------------->
+<div class="sticky">
+    <input type="text" id="uname" placeholder="名前">
+    <textarea name="" id="text" cols="30" rows="10" placeholder="本文"></textarea>
+    <!-- <input type="text" id="id" placeholder="ID (削除したい時のみ)"> -->
+    <button class="send">送信</button>
+    <!-- <button class="delete">削除</button> -->
+</div>
+<div id="output" style="overflow: auto; height: 700px;"></div>
+<!------------------------------/ コンテンツ表示画面/チャット入力部分 ------------------------->
+
+<!-- JQuery -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<!-- JQuery -->
+
+<!------------------------------** 以下Firebase **------------------------------>
+<!-- google firebaseで作成済のものをfirebaseからコピペ / firebaseの初期設定-->
+    <script type="module">
+        // Import the functions you need from the SDKs you need
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/9.8.1/firebase-app.js"; //分割代入に似たことを実施 = html以下からinitializeAppだけを取ってくる
+        // TODO: Add SDKs for Firebase products that you want to use
+        // https://firebase.google.com/docs/web/setup#available-libraries
+        
+        // 以下さかじり先生Notionよりコピペ（指示あり）
+        import { getDatabase, ref, push, set, onChildAdded, remove, onChildRemoved }
+            from "https://cdnjs.cloudflare.com/ajax/libs/firebase/9.8.1/firebase-database.min.js"; //version情報（9.8.1）が上のリンクと異なっているとエラーが怒る
+
+        // Your web app's Firebase configuration
+        // firebaseにアクセスする場合の情報をobject使用して記載=設定コンフィグ
+        const firebaseConfig = {
+        apiKey: "",
+        authDomain: "fir-demo-a672a.firebaseapp.com",
+        projectId: "fir-demo-a672a",
+        storageBucket: "fir-demo-a672a.appspot.com",
+        messagingSenderId: "905278563191",
+        appId: "1:905278563191:web:5762603d4da66ecd553772"
+        };
+    
+        // Initialize Firebase = 初期化、なんのapp（initializeApp）を作るか宣言
+        const app = initializeApp(firebaseConfig);
+// <!------------------------------** 以上Firebase **------------------------------>
+
+
+// realtime DBの初期設定 = DBのここに書き込みを行ってください、という指示文
+    const db = getDatabase(app);   //DBの何を使いたいか書く
+    const dbRef = ref(db, 'chat')  //チャットをどこのDBから参照するか、指示出し文（refを分けると、chatはDB-A, 本文はDB-Bという風に指定ができる）
+
+$('.send').on('click', function (){     // 送信ボタンを押したら
+    const msg = {                       // messageのobjectを作る
+        uname: $('#uname').val(),       // unameの値を取得
+        text: $('#text').val()
+    }
+    const newPostRef = push (dbRef);    // dbRef = ref(db, 'chat') = dbのチャットをpush
+    set(newPostRef, msg);               // セットしたものをobject側で取得?
+});
+
+// DBに入っているデータをconsolで表示 → HYML化
+    onChildAdded(dbRef, function(data){     // dbRef = ref(db, 'chat')に入っている全データを読込む
+        const msg = data.val();
+        const key = data.key;       // uniqueID取得
+        console.log(msg, key);      // msg(uname&text)とkey=uniqueIDをコンソールに表示
+        const h = `<p>${msg.uname}: ${msg.text} <button class="dustBoxBtn"><img src="./imgs/dustBox.png"></button></p>`
+        // const h = `<p>${msg.uname}: ${msg.text} <br> ${key}</p>`
+        $('#output').append(h);
+    });
+
+// ユニークIDを取得 → msg削除
+$('.dustBoxBtn').on('click', function(){
+    $(key).remove("msg")
+
+    
+
+    
+    // remove(ref(key, msg));
+    // const uniqueID = key.val();
+});
+
+// APIキーはgitには上げない、''空文字で提出、代わりにgoogle form上に書いて提出
+</script>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

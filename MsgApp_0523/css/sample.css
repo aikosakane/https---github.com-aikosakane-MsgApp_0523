@@ -1,0 +1,51 @@
+.sticky {
+  position: -webkit-sticky; /* Safari用 */
+  position:sticky;          /* スクロールで固定 */
+  top:0;
+  background-color: white;
+  padding: 10px;
+}
+
+#uname{
+  width: 100%;    /* レスポンシブ */
+}
+
+#text{
+  width: 100%;    /* レスポンシブ */
+}
+
+.delete {
+  position: absolute;
+  right: 5px;
+}
+
+.send {
+  position: absolute;
+  right: 50px;
+}
+
+/* 吹き出し設定 */
+p {
+  width: 70%;
+  position: relative;
+  padding: 25px;
+  margin-left: 13px;    /* 左からのスペース */
+  border-radius: 12px;
+  box-sizing: border-box;
+  background-color: #fde5e5;
+}
+
+/* 吹き出し▲設定 */
+p::before {
+  content: '';
+  position: absolute;
+  border-style: solid;
+  border-width: 15px 30px 15px 0;
+  border-color: transparent #fde5e5 transparent transparent;
+  left: -13px;
+  }
+
+img {
+  height: 20px;
+  cursor: pointer;
+}

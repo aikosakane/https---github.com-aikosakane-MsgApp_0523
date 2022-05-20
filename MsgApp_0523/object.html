@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Object演習</title>
+</head>
+<body>
+<script>
+const post = {
+    title: "投稿タイトル",
+    text: "本文",
+    user: {
+        name: "ジーズ太郎",
+        email: "gstaro@example.com"
+    }
+};
+
+// オブジェクトの中身を取得してみる
+console.log(post);
+console.log(post.title);  //postの中のtitleを取る
+console.log(post.text);
+console.log(post.user);
+console.log(post.user.name); //userの中のnameを取ってくる
+
+// 分割代入 = 中身の一部を取ってくる
+const {title, text} = post;  // postの中のtitle, textを取ってきて定数にしてください
+console.log(title);
+console.log(text);
+
+</script>
+</body>
+</html>
